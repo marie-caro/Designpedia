@@ -7,60 +7,111 @@
 
 import SwiftUI
 import SwiftData
+import Observation
 
-struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+struct HistoryView: View {
+    @Environment(ThemeEnvironment.self) private var theme
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        ScrollView {
+            VStack {
+                Text("Year: " + theme.currentStyle.originYear)
+                Text(theme.currentStyle.description)
+                Divider()
+                Text(theme.currentStyle.context)
+                Divider()
+                Text("Influenced by...")
+                ForEach(theme.currentStyle.influences, id: \.self) { item in
+                    Text(item)
                 }
-                .onDelete(perform: deleteItems)
+                Divider()
+                Text("Typography: " + theme.currentStyle.typography)
+                Divider()
+                Text("Colors: ")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .padding(.leading)
+                ForEach(theme.currentStyle.colors, id: \.self) { item in
+                    Text(item.description)
+                }
+                Divider()
+                Text("Shapes: ")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .padding(.leading)
+                ForEach(theme.currentStyle.shapes, id: \.self) { item in
+                    Text(item.rawValue)
+                }
+                Text(theme.currentStyle.texture.rawValue)
+
             }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        }
+        .navigationTitle(theme.currentStyle.name)
+        .navigationBarTitleDisplayMode(.inline) 
+    }
+}
+
+struct DesignView: View {
+    @Environment(ThemeEnvironment.self) private var theme
+
+    var body: some View {
+        VStack {
+            Text(theme.currentStyle.name)
+            Text(theme.currentStyle.description)
+        }
+    }
+}
+
+
+struct ContentView: View {
+    @State private var selectedView: Int = 0
+    @State private var styleIndex: Int = 0
+    @Environment(ThemeEnvironment.self) private var theme
+    
+    private let styles = [
+        DesignStyles.shared.glassmorphism,
+        DesignStyles.shared.neumorphism,
+        DesignStyles.shared.flatDesign,
+        DesignStyles.shared.skeuomorphism,
+        DesignStyles.shared.neobrutalism,
+        DesignStyles.shared.claymorphism,
+        DesignStyles.shared.materialDesign
+    ]
+    
+    var body: some View {
+        NavigationStack {
+            Group {
+                if selectedView == 0 {
+                    HistoryView()
+                } else {
+                    DesignView()
+                }
+            }
             .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                ToolbarItem(placement: .bottomBar) {
+                    HStack {
+                        Button("History") { selectedView = 0 }
+                        Spacer()
+                        Button("Change Style") { changeStyle() }
+                        Spacer()
+                        Button("Design") { selectedView = 1 }
                     }
+                    .padding(.horizontal)
                 }
             }
-        } detail: {
-            Text("Select an item")
+            .foregroundColor(theme.currentStyle.colors.first)
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+    private func changeStyle() {
+        styleIndex = (styleIndex + 1) % styles.count
+        theme.currentStyle = styles[styleIndex]
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .environment(
+            ThemeEnvironment(
+                initialStyle: DesignStyles.shared.skeuomorphism
+            )
+        )
 }
