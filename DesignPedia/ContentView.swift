@@ -1,66 +1,111 @@
 //
 //  ContentView.swift
-//  DesignPedia
+//  DesignPediq
 //
-//  Created by Marie on 22/02/2026.
+//  Created by Marie on 18/02/2026.
 //
 
 import SwiftUI
 import SwiftData
+import Observation
 
-struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+struct DesignView: View {
+    @Environment(ThemeEnvironment.self) private var theme
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    theme.currentStyle.colors.last ?? .white,
+                    theme.currentStyle.colors.first ?? .white
+                ]),
+                startPoint: .bottomLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack {
+                HStack(spacing: 50) {
+                    VStack() {
+                        theme.currentStyle.textView()
+                            .foregroundStyle(Color.black)
+                            .fixedSize()
+                        theme.currentStyle.drawView()
                     }
+                    theme.currentStyle.clockView()
                 }
-                .onDelete(perform: deleteItems)
+                Spacer()
             }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .navigationTitle(theme.currentStyle.name)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+struct HistoryView: View {
+    @Environment(ThemeEnvironment.self) private var theme
+
+    var body: some View {
+        ScrollView {
+            VStack {
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .navigationTitle(theme.currentStyle.name)
+        .navigationBarTitleDisplayMode(.inline)
+
+    }
+}
+
+struct ContentView: View {
+    @State private var selectedView: Int = 0
+    @State private var styleIndex: Int = 0
+    @Environment(ThemeEnvironment.self) private var theme
+    
+    private let styles: [any DesignStyle] = [
+        Neumorphism(),
+        Skeuomorphism(),
+        Glassmorphism(),
+        FlatDesign(),
+        Neobrutalism(),
+    ]
+    
+    var body: some View {
+        NavigationStack {
+            Group {
+                if selectedView == 0 {
+                    DesignView()
+                } else {
+                    HistoryView()
+                }
+            }
             .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                ToolbarItem(placement: .bottomBar) {
+                    HStack {
+                        Button("History") { selectedView = 0 }
+                        Spacer()
+                        Button("Change Style") { changeStyle() }
+                        Spacer()
+                        Button("Design") { selectedView = 1 }
                     }
+                    .padding(.horizontal)
                 }
             }
-        } detail: {
-            Text("Select an item")
+            .foregroundColor(theme.currentStyle.colors.first)
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+    private func changeStyle() {
+        let next = (styleIndex + 1) % styles.count
+        styleIndex = next
+        theme.currentStyle = styles[next]
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .environment(
+            ThemeEnvironment(
+                initialStyle: Neumorphism()
+            )
+        )
 }

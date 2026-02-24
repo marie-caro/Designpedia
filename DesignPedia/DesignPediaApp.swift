@@ -1,8 +1,8 @@
 //
-//  DesignPediaApp.swift
-//  DesignPedia
+//  DesignPediqApp.swift
+//  DesignPediq
 //
-//  Created by Marie on 22/02/2026.
+//  Created by Marie on 18/02/2026.
 //
 
 import SwiftUI
@@ -10,23 +10,15 @@ import SwiftData
 
 @main
 struct DesignPediaApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    
+    @State private var theme = ThemeEnvironment(
+        initialStyle: Neumorphism()
+    )
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(theme)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
