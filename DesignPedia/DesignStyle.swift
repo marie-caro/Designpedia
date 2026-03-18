@@ -34,19 +34,20 @@ protocol DesignStyle: Identifiable {
     var name: String { get }
     var designId: Int { get }
     var description: String { get }
-
+    
     var originYear: String { get }
     var context: String { get }
     var influences: [String] { get }
-
+    
     var shapes: [ShapeStyle] { get }
     var colors: [Color] { get }
     var typography: String { get }
     var shadows: [ShadowStyle] { get }
     var opacity: Double { get }
     var texture: TextureStyle { get }
-
+    
     func clockView() -> AnyView
     func textView() -> AnyView
     func drawView() -> AnyView
+    func widgetsView() -> AnyView
 }

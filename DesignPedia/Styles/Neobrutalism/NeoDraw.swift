@@ -1,14 +1,14 @@
 //
-//  NeuDraw.swift
+//  NeoDraw.swift
 //  DesignPedia
 //
-//  Created by Marie on 24/02/2026.
+//  Created by Marie on 26/02/2026.
 //
 import SwiftUI
 
-struct NeuDraw: View {
+struct NeoDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
-    var colors = [Color.white, Color.cyan.opacity(0.25)]
+    var colors = [Color.white, Color.black]
     @Binding var clearButtonState: Bool
     
     var body: some View {
@@ -16,7 +16,7 @@ struct NeuDraw: View {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 10) {
                 ForEach(0..<toggleStates.count, id: \.self) { index in
                     Circle()
-                        .fill(toggleStates[index] ? colors[1] : colors[0])
+                        .fill(toggleStates[index] ? .retroPink : colors[0])
                         .frame(width: 20, height: 20)
                         .overlay(
                             Circle().stroke(colors[1], lineWidth: 1)
@@ -29,7 +29,11 @@ struct NeuDraw: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.cyan)
+                    .fill(Color.black)
+                    .frame(width: 75, height: 15)
+                    .offset(x: 4, y: 4)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.retroPink)
                     .frame(width: 75, height: 15)
                 Text("Clear canvas")
                     .foregroundColor(.white)

@@ -38,14 +38,22 @@ struct FlatDesign: DesignStyle {
         )
     }
 
+    func widgetsView() -> AnyView {
+        AnyView(
+            FlatWidgetView()
+        )
+    }
+    
     func textView() -> AnyView {
         AnyView(
             FlatTextView()
         )
     }
+    
+    @State var clearButtonState: Bool = false
     func drawView() -> AnyView {
         AnyView(
-            NeuTextView()
+            FlatDraw(clearButtonState: $clearButtonState)
         )
     }
 }

@@ -32,7 +32,10 @@ struct DesignView: View {
                             .fixedSize()
                         theme.currentStyle.drawView()
                     }
-                    theme.currentStyle.clockView()
+                    VStack() {
+                        theme.currentStyle.clockView()
+                        theme.currentStyle.widgetsView()
+                    }
                 }
                 Spacer()
             }
@@ -82,11 +85,11 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
-                        Button("History") { selectedView = 0 }
+                        Button("History") { selectedView = 1 }
                         Spacer()
                         Button("Change Style") { changeStyle() }
                         Spacer()
-                        Button("Design") { selectedView = 1 }
+                        Button("Design") { selectedView = 0 }
                     }
                     .padding(.horizontal)
                 }

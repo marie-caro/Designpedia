@@ -32,7 +32,6 @@ struct Neumorphism: DesignStyle {
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
 
-
     func clockView() -> AnyView {
         AnyView(
             NeuClockView()
@@ -43,10 +42,17 @@ struct Neumorphism: DesignStyle {
             NeuTextView()
         )
     }
+
+    @State var clearButtonState: Bool = false
     func drawView() -> AnyView {
         AnyView(
-            NeuDraw()
+            NeuDraw(clearButtonState: $clearButtonState)
         )
     }
-
+    func widgetsView() -> AnyView {
+        AnyView(
+            NeuWidgetView()
+                .environment(ThemeEnvironment(initialStyle: Neumorphism()))
+        )
+    }
 }

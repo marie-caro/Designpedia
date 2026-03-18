@@ -31,7 +31,7 @@ struct Glassmorphism: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
-    
+        
     
     func clockView() -> AnyView {
         AnyView(
@@ -43,9 +43,17 @@ struct Glassmorphism: DesignStyle {
             GlassTextView()
         )
     }
+    
+    @State var clearButtonState: Bool = false
     func drawView() -> AnyView {
         AnyView(
-            NeuTextView()
+            GlassDraw(clearButtonState: $clearButtonState)
+        )
+    }
+    func widgetsView() -> AnyView {
+        AnyView(
+            GlassWidgetView()
+                .environment(ThemeEnvironment(initialStyle: Glassmorphism()))
         )
     }
 

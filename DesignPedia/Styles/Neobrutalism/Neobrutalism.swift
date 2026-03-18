@@ -42,9 +42,17 @@ struct Neobrutalism: DesignStyle {
             NeoTextView()
         )
     }
+
+    @State var clearButtonState: Bool = false    
     func drawView() -> AnyView {
         AnyView(
-            NeuTextView()
+            NeoDraw(clearButtonState: $clearButtonState)
         )
     }
+    func widgetsView() -> AnyView {
+        AnyView(
+            NeoWidgetView()
+        )
+    }
+
 }

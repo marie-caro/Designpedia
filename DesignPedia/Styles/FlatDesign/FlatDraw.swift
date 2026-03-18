@@ -1,12 +1,13 @@
 //
-//  NeuDraw.swift
+//  FlatDraw.swift
 //  DesignPedia
 //
-//  Created by Marie on 24/02/2026.
+//  Created by Marie on 26/02/2026.
 //
+
 import SwiftUI
 
-struct NeuDraw: View {
+struct FlatDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
     var colors = [Color.white, Color.cyan.opacity(0.25)]
     @Binding var clearButtonState: Bool
@@ -43,3 +44,4 @@ struct NeuDraw: View {
         .padding()
     }
 }
+

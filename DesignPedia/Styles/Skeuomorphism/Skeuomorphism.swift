@@ -41,10 +41,16 @@ struct Skeuomorphism: DesignStyle {
             SkeuoTextView()
         )
     }
+    
+    @State var clearButtonState: Bool = false
     func drawView() -> AnyView {
         AnyView(
-            NeuTextView()
+            SkeuoDraw(clearButtonState: $clearButtonState)
         )
     }
-
+    func widgetsView() -> AnyView {
+        AnyView(
+            SkeuoWidgetView()
+        )
+    }
 }
