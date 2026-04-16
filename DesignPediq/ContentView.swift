@@ -46,7 +46,9 @@ struct HistoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .navigationTitle(theme.currentStyle.name)
-        .navigationBarTitleDisplayMode(.inline) 
+#if os(iOS) || os(tvOS) || os(watchOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
     }
 }
 

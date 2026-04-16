@@ -37,6 +37,7 @@ struct DesignView: View {
                         theme.currentStyle.widgetsView()
                     }
                 }
+                .padding(.horizontal, 20)
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .center)
