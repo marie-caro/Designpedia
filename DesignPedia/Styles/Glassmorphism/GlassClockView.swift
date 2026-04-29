@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct GlassmorphismClockView: View {
     @State private var currentDate = Date()
@@ -26,23 +24,7 @@ struct GlassmorphismClockView: View {
                     let radius = min(geo.size.width, geo.size.height) / 2 - 8
                     
                     ZStack {
-                        /*Circle()
-                            .fill(Color.gray)
-                            .frame(width: 75, height: 75)
-                            .offset(x: -40, y: -40)*/
-
-                        Circle()
-                            .fill(Color.gray.opacity(0.4))
-                            .glassEffect(.regular, in: .circle)
-                            .frame(width: 85, height: 85)
-
-                        /*.fill(Color.gray.opacity(0.4))
-                            .background(.ultraThinMaterial, in: Circle())
-                            .frame(width: 85, height: 85)
-                            .overlay(
-                               Circle()
-                                    .stroke(Color.white.opacity(0.45), lineWidth: 1)
-                            )*/
+                        glassFace
 
                         // Hour ticks
                         ForEach(0..<60) { i in
@@ -86,5 +68,24 @@ struct GlassmorphismClockView: View {
             .aspectRatio(1, contentMode: .fit)
         }
         .frame(width: 100, height: 100)
+    }
+
+    @ViewBuilder
+    private var glassFace: some View {
+        if #available(iOS 26.0, *) {
+            Circle()
+                .fill(Color.gray.opacity(0.4))
+                .glassEffect(.regular, in: .circle)
+                .frame(width: 85, height: 85)
+        } else {
+            Circle()
+                .fill(Color.white.opacity(0.14))
+                .frame(width: 85, height: 85)
+                .background(.ultraThinMaterial, in: Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                )
+        }
     }
 }

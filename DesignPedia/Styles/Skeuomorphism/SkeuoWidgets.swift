@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct SkeuoWidgetView: View {
     var body: some View {
-        Circle()
-            .fill(.white)
+        StyleWidgetDemo(style: .skeuomorphism)
     }
 }

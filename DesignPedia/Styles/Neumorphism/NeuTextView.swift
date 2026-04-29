@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct NeuTextView: View {
     @State private var userInput: String = ""

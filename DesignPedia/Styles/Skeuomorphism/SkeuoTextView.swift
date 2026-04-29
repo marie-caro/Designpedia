@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct SkeuoTextView: View {
     @State private var userInput: String = ""

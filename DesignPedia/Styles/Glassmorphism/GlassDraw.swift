@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GlassDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
-    @Binding var clearButtonState: Bool
 
     private let blurRadius: CGFloat = 8
 
@@ -76,7 +75,6 @@ struct GlassDraw: View {
                     .font(.caption)
                     .foregroundStyle(.white.opacity(0.9))
                     .onTapGesture {
-                        clearButtonState.toggle()
                         toggleStates = Array(repeating: false, count: 24)
                     }
             }

@@ -5,8 +5,6 @@
 //  Created by Marie on 22/02/2026.
 //
 import SwiftUI
-import SwiftData
-import Observation
 
 struct Neumorphism: DesignStyle {
 
@@ -31,28 +29,23 @@ struct Neumorphism: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
+    let quickCues: [String] = [
+        "Soft extruded surfaces, subtle highlight + shadow",
+        "Low contrast; relies on spacing and depth more than borders",
+    ]
+    let commonUse: [String] = ["Controls", "Dashboards", "Settings", "Cards"]
 
     func clockView() -> AnyView {
-        AnyView(
-            NeuClockView()
-        )
+        AnyView(NeuClockView())
     }
     func textView() -> AnyView {
-        AnyView(
-            NeuTextView()
-        )
+        AnyView(NeuTextView())
     }
 
-    @State var clearButtonState: Bool = false
     func drawView() -> AnyView {
-        AnyView(
-            NeuDraw(clearButtonState: $clearButtonState)
-        )
+        AnyView(NeuDraw())
     }
     func widgetsView() -> AnyView {
-        AnyView(
-            NeuWidgetView()
-                .environment(ThemeEnvironment(initialStyle: Neumorphism()))
-        )
+        AnyView(NeuWidgetView())
     }
 }

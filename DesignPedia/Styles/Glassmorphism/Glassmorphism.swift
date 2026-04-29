@@ -4,21 +4,20 @@
 //
 //  Created by Marie on 23/02/2026.
 //
+
 import SwiftUI
-import SwiftData
-import Observation
 
 struct Glassmorphism: DesignStyle {
-    
+
     let id: UUID = UUID()
     let name: String = "Glassmorphism"
     let designId: Int = 3
     let description: String =
-    "Soft, extruded elements blending with the background using subtle shadows and highlights for a pseudo-3D effect."
-    let originYear: String = "2019"
+        "Translucent, frosted-glass panels with blur effects and subtle borders over colorful backgrounds."
+    let originYear: String = "2020"
     let context: String =
-    "A modern take on skeuomorphism, mainly used in UI components like buttons and cards."
-    let influences: [String] = ["Skeuomorphism", "Flat Design"]
+        "Popularized by macOS Big Sur and iOS 14, creating depth through layered transparency."
+    let influences: [String] = ["Aero glass", "Material Design"]
     let shapes: [ShapeStyle] = [.rounded]
     let colors: [Color] = [
         Color.black.opacity(0.3),
@@ -31,30 +30,23 @@ struct Glassmorphism: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
+    let quickCues: [String] = [
+        "Frosted glass panels with blur and translucent fills",
+        "Bright highlights + thin strokes over colorful backgrounds",
+    ]
+    let commonUse: [String] = ["Overlays", "Player UI", "Widgets", "Landing screens"]
         
-    
     func clockView() -> AnyView {
-        AnyView(
-            GlassmorphismClockView()
-        )
+        AnyView(GlassmorphismClockView())
     }
     func textView() -> AnyView {
-        AnyView(
-            GlassTextView()
-        )
-    }
-    
-    @State var clearButtonState: Bool = false
-    func drawView() -> AnyView {
-        AnyView(
-            GlassDraw(clearButtonState: $clearButtonState)
-        )
-    }
-    func widgetsView() -> AnyView {
-        AnyView(
-            GlassWidgetView()
-                .environment(ThemeEnvironment(initialStyle: Glassmorphism()))
-        )
+        AnyView(GlassTextView())
     }
 
+    func drawView() -> AnyView {
+        AnyView(GlassDraw())
+    }
+    func widgetsView() -> AnyView {
+        AnyView(GlassWidgetView())
+    }
 }

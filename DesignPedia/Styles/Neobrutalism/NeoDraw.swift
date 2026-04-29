@@ -1,5 +1,5 @@
 //
-//  FlatDraw.swift
+//  NeoDraw.swift
 //  DesignPedia
 //
 //  Created by Marie on 26/02/2026.
@@ -7,21 +7,19 @@
 
 import SwiftUI
 
-struct FlatDraw: View {
+struct NeoDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
-
-    private let offFill = Color.white
-    private let onFill = Color.cyan
+    var colors = [Color.white, Color.black]
 
     var body: some View {
         VStack(spacing: 16) {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 6), spacing: 10) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 10) {
                 ForEach(0..<toggleStates.count, id: \.self) { index in
                     Circle()
-                        .fill(toggleStates[index] ? onFill : offFill)
+                        .fill(toggleStates[index] ? .retroPink : colors[0])
                         .frame(width: 20, height: 20)
                         .overlay(
-                            Circle().stroke(Color.black.opacity(0.8), lineWidth: 1)
+                            Circle().stroke(colors[1], lineWidth: 1)
                         )
                         .onTapGesture {
                             toggleStates[index].toggle()
@@ -30,12 +28,16 @@ struct FlatDraw: View {
             }
 
             ZStack {
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.cyan)
-                    .frame(width: 120, height: 32)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.black)
+                    .frame(width: 75, height: 15)
+                    .offset(x: 4, y: 4)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.retroPink)
+                    .frame(width: 75, height: 15)
                 Text("Clear canvas")
-                    .font(.caption)
                     .foregroundColor(.white)
+                    .font(.caption)
                     .onTapGesture {
                         toggleStates = Array(repeating: false, count: 24)
                     }
@@ -44,4 +46,3 @@ struct FlatDraw: View {
         .padding()
     }
 }
-

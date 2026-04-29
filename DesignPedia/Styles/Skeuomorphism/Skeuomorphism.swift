@@ -5,8 +5,6 @@
 //  Created by Marie on 22/02/2026.
 //
 import SwiftUI
-import SwiftData
-import Observation
 
 struct Skeuomorphism: DesignStyle {
 
@@ -30,27 +28,23 @@ struct Skeuomorphism: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
+    let quickCues: [String] = [
+        "Real materials, gradients, bevels, and inner shadows",
+        "Looks like physical objects (buttons, cards, paper)",
+    ]
+    let commonUse: [String] = ["Music", "Notes", "Calendar", "E‑commerce"]
 
     func clockView() -> AnyView {
-        AnyView(
-            SkeuoClockView()
-        )
+        AnyView(SkeuoClockView())
     }
     func textView() -> AnyView {
-        AnyView(
-            SkeuoTextView()
-        )
+        AnyView(SkeuoTextView())
     }
-    
-    @State var clearButtonState: Bool = false
+
     func drawView() -> AnyView {
-        AnyView(
-            SkeuoDraw(clearButtonState: $clearButtonState)
-        )
+        AnyView(SkeuoDraw())
     }
     func widgetsView() -> AnyView {
-        AnyView(
-            SkeuoWidgetView()
-        )
+        AnyView(SkeuoWidgetView())
     }
 }

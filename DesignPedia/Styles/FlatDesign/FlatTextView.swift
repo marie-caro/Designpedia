@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct FlatTextView: View {
     @State private var userInput: String = ""
@@ -26,7 +24,10 @@ struct FlatTextView: View {
                     alignment: .bottom
                 )
             
-            TextField(" enter you secrets here...", text: $userInput)
+            TextField("Enter your secrets here...", text: $userInput)
+                .frame(width: 190, height: 40)
+                .padding(.leading, 8)
+                .textFieldStyle(.plain)
         }
     }
 }

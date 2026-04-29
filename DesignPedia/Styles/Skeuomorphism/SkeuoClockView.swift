@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Observation
 
 struct SkeuoClockView: View {
     @State private var currentDate = Date()

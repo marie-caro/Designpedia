@@ -5,19 +5,12 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct GlassTextView: View {
     @State private var userInput: String = ""
     
     var body: some View {
         ZStack {
-            // ESTO ES PARA VER GLASS, REMOVE? NO NECESARIO
-            Rectangle()
-                .fill(.red)
-                .frame(width: 40, height:12)
-    
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.white.opacity(0.1))
                 .frame(width: 230, height: 40)

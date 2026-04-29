@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NeuDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
-    @Binding var clearButtonState: Bool
 
     private let baseColor = Color.cyan.opacity(0.25)
 
@@ -51,7 +50,6 @@ struct NeuDraw: View {
                     .font(.caption)
                     .foregroundColor(.black.opacity(0.8))
                     .onTapGesture {
-                        clearButtonState.toggle()
                         toggleStates = Array(repeating: false, count: 24)
                     }
             }

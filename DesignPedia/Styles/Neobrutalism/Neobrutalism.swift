@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct Neobrutalism: DesignStyle {
 
@@ -15,11 +13,11 @@ struct Neobrutalism: DesignStyle {
     let name: String = "Neobrutalism"
     let designId: Int = 5
     let description: String =
-        "Real-world inspired design that mimics physical materials like leather, paper, or metal with realistic depth and texture."
-    let originYear: String = "2007"
+        "Bold, raw design with high contrast, thick borders, and intentionally unpolished aesthetics."
+    let originYear: String = "2020"
     let context: String =
-        "Popular in early iOS and desktop UI designs to make digital interfaces feel tangible."
-    let influences: [String] = ["Real-world objects", "Industrial design"]
+        "A reaction to overly polished UIs, embracing roughness and asymmetry for a distinctive look."
+    let influences: [String] = ["Brutalist architecture", "Postmodernism"]
     let shapes: [ShapeStyle] = [.rounded, .organic]
     let colors: [Color] = [
         Color.retroYellow,
@@ -31,28 +29,23 @@ struct Neobrutalism: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
+    let quickCues: [String] = [
+        "Bold fills, thick strokes, hard offsets",
+        "Playful, raw, intentionally “unpolished” look",
+    ]
+    let commonUse: [String] = ["Portfolios", "Creative apps", "Posters", "Editorial"]
 
     func clockView() -> AnyView {
-        AnyView(
-            NeobrutalismClockView()
-        )
+        AnyView(NeobrutalismClockView())
     }
     func textView() -> AnyView {
-        AnyView(
-            NeoTextView()
-        )
+        AnyView(NeoTextView())
     }
 
-    @State var clearButtonState: Bool = false    
     func drawView() -> AnyView {
-        AnyView(
-            NeoDraw(clearButtonState: $clearButtonState)
-        )
+        AnyView(NeoDraw())
     }
     func widgetsView() -> AnyView {
-        AnyView(
-            NeoWidgetView()
-        )
+        AnyView(NeoWidgetView())
     }
-
 }

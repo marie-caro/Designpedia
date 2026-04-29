@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct FlatDesign: DesignStyle {
 
@@ -15,11 +13,11 @@ struct FlatDesign: DesignStyle {
     let name: String = "FlatDesign"
     let designId: Int = 4
     let description: String =
-        "Real-world inspired design that mimics physical materials like leather, paper, or metal with realistic depth and texture."
+        "Minimalist design with solid colors, simple shapes, and no decorative effects like gradients or shadows."
     let originYear: String = "2007"
     let context: String =
-        "Popular in early iOS and desktop UI designs to make digital interfaces feel tangible."
-    let influences: [String] = ["Real-world objects", "Industrial design"]
+        "Popularized by Microsoft Metro and Apple iOS 7, emphasizing content over chrome."
+    let influences: [String] = ["Swiss Style", "Bauhaus"]
     let shapes: [ShapeStyle] = [.rounded, .organic]
     let colors: [Color] = [
         Color.gray.opacity(0.2),
@@ -31,29 +29,25 @@ struct FlatDesign: DesignStyle {
     ]
     let opacity: Double = 1.0
     let texture: TextureStyle = .matte
+    let quickCues: [String] = [
+        "Minimal shapes, solid colors, little to no depth",
+        "Hierarchy through color, spacing, and typography",
+    ]
+    let commonUse: [String] = ["Productivity", "Onboarding", "Lists", "Forms"]
 
     func clockView() -> AnyView {
-        AnyView(
-            FlatClockView()
-        )
+        AnyView(FlatClockView())
     }
 
     func widgetsView() -> AnyView {
-        AnyView(
-            FlatWidgetView()
-        )
+        AnyView(FlatWidgetView())
     }
-    
+
     func textView() -> AnyView {
-        AnyView(
-            FlatTextView()
-        )
+        AnyView(FlatTextView())
     }
-    
-    @State var clearButtonState: Bool = false
+
     func drawView() -> AnyView {
-        AnyView(
-            FlatDraw(clearButtonState: $clearButtonState)
-        )
+        AnyView(FlatDraw())
     }
 }

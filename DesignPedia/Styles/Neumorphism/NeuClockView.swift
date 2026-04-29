@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct NeuClockView: View {
     @State private var currentDate = Date()

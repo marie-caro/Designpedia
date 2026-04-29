@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-import Observation
 
 struct FlatClockView: View {
     @State private var currentDate = Date()

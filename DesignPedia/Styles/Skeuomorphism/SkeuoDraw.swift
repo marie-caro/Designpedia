@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SkeuoDraw: View {
     @State private var toggleStates: [Bool] = Array(repeating: false, count: 24)
-    @Binding var clearButtonState: Bool
 
     private let offFill = Color.gray.opacity(0.15)
     private let onFill = Color(red: 0.85, green: 0.4, blue: 0.2)
@@ -70,7 +69,6 @@ struct SkeuoDraw: View {
                     .font(.caption)
                     .foregroundColor(.black.opacity(0.8))
                     .onTapGesture {
-                        clearButtonState.toggle()
                         toggleStates = Array(repeating: false, count: 24)
                     }
             }
